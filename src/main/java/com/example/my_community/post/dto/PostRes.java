@@ -13,12 +13,14 @@ public class PostRes {
     private final String content;
     private final Long authorId;
     private final String createdAt;
+    private final int likeCount;
 
-    public PostRes(Long id, String title, String content, Long authorId, String createdAt) {
+    public PostRes(Long id, String title, String content, Long authorId, String createdAt, int likeCount) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.authorId = authorId;
         this.createdAt = createdAt;
+        this.likeCount = likeCount;
     }
 }

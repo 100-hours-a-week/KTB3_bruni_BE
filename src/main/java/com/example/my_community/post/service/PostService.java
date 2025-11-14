@@ -32,7 +32,8 @@ public class PostService {
 
     // 도메인 -> 응답 DTO 변환
     private PostRes toRes(Post p) {
-        return new PostRes(p.getId(), p.getTitle(), p.getContent(), p.getUser().getId(), p.getCreatedAt().toString());
+        return new PostRes(p.getId(), p.getTitle(), p.getContent(),
+                p.getUser().getId(), p.getCreatedAt().toString(), p.getLikeCount());
     }
 
     // 게시글 생성
@@ -44,11 +45,11 @@ public class PostService {
 
         Post post = new Post(
                 null, // null로 전달하는 이유? 서비스 계층에서 id(식별자)에 대한 연산은 수행하지 않는게 맞고, id 관련 연산은 레포지토리 계층에서 하는게 맞다.
+                userRepository.findById(currentUserId).get(),
                 req.getTitle(),
                 req.getContent(),
                 OffsetDateTime.now(),
-                userRepository.findById(currentUserId).get()
-
+                0
         );
         Post saved = postRepository.save(post);
         return toRes(saved);

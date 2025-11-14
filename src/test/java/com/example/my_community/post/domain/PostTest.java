@@ -25,7 +25,7 @@ class PostTest {
     @Rollback(false)
     void idTest() {
         User user = new User("bruni", "123123", Role.USER);
-        Post post = new Post(null, "게시글 제목", "게시글 본문", OffsetDateTime.now(), user);
+        Post post = new Post(null, user,"게시글 제목", "게시글 본문", OffsetDateTime.now(), 1);
         entityManager.persist(post);
     }
 
@@ -43,10 +43,11 @@ class PostTest {
 
             Post post = new Post(
                     null,
+                    user,
                     "test title" + i,
                     "test content" + i,
                     OffsetDateTime.now(),
-                    user
+                    1
             );
             entityManager.persist(post);
         }
@@ -73,10 +74,11 @@ class PostTest {
 
             Post post = new Post(
                     null,
+                    user,
                     "test title" + i,
                     "test content" + i,
                     OffsetDateTime.now(),
-                    user
+                    1
             );
             entityManager.persist(post);
         }
