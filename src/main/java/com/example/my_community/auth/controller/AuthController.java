@@ -32,8 +32,19 @@ public class AuthController {
     @Operation(summary = "로그인(세션 생성)")
     @ApiResponse(responseCode = "204", description = "로그인 성공 (세션 생성)")
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestParam Long userId, @Parameter(hidden = true) HttpSession session) {
-        session.setAttribute(AuthSessionKeys.LOGIN_USER_ID, userId);
+    public ResponseEntity<Void> login(@RequestBody LoginRequest req, @Parameter(hidden = true) HttpSession session) {
+        // 이메일로 사용자 조회
+        User user = userRepository.findByEmail(req.getEmail())
+                .orElseThrow(() ->
+                        new UnauthorizedException("이메일 또는 비밀번호가 올바르지 않습니다."));
+        // 비밀번호 검즘(일단 평문 비교 이후에 리펙토링 필요)
+        if (!user.getPassword().equals(req.getPassword())) {
+            throw new UnauthorizedException("이메일 또는 비밀번호가 올바르지 않습니다.");
+        }
+
+        // 세션에 로그인 유저 ID 저장
+        session.setAttribute(AuthSessionKeys.LOGIN_USER_ID, user.getId());
+
         return ResponseEntity.noContent().build(); // 204
     }
 
