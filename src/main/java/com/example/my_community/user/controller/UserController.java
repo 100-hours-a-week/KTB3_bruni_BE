@@ -13,10 +13,27 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping
-    public UserResponse create(@RequestBody CreateUserRequest request) {
-        User saved = userService.create(request.email, request.password, request.role);
-        return UserResponse.of(saved);
+    // 회원 가입 매핑
+    @PostMapping(value = "/api/users", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<UserResponse> signup(
+            @RequestPart("email") String email,
+            @RequestPart("password") String password,
+            @RequestPart("nickname") String nickname,
+            @RequestPart(value = "profileImage", required = false)MultipartFile profileImage
+            ) {
+
+        // 프로필 이미지가 있으면 byte[]로 저장
+        try {
+            byte[] profileImageToByte = null;
+            if (profileImage != null && !profileImage.isEmpty()) {
+                profileImageToByte = profileImage.getBytes();
+            }
+            User saved = userService.create(email, password, nickname, profileImageToByte);
+            UserResponse res = UserResponse.of(saved);
+            return ResponseEntity.status(HttpStatus.CREATED).body(res);
+        } catch (IOException e) {
+            throw new FileInputException("프로필 이미지를 처리하는 중 오류가 발생했습니다.", e);
+        }
     }
 
     @GetMapping(("/{id}"))
