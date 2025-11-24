@@ -1,8 +1,6 @@
 package com.example.my_community.auth.controller;
 
-import com.example.my_community.auth.Auth;
 import com.example.my_community.auth.AuthSessionKeys;
-import com.example.my_community.auth.SessionUser;
 import com.example.my_community.auth.dto.LoginRequest;
 import com.example.my_community.common.exception.UnauthorizedException;
 import com.example.my_community.user.domain.User;

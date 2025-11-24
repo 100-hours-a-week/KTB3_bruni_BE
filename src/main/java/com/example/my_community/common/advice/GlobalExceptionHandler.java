@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.time.OffsetDateTime;
-
 @RestControllerAdvice  // 전역 컨트롤러 예외 처리기
 public class GlobalExceptionHandler {
 

@@ -4,7 +4,6 @@ import com.example.my_community.user.domain.Role;
 import com.example.my_community.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor

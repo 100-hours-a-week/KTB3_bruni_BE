@@ -1,6 +1,5 @@
 package com.example.my_community.post.service;
 
-import com.example.my_community.comment.domain.Comment;
 import com.example.my_community.comment.repository.CommentRepository;
 import com.example.my_community.common.exception.FileInputException;
 import com.example.my_community.common.exception.ForbiddenException;
