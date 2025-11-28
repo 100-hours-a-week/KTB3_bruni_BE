@@ -125,7 +125,7 @@ public class PostController {
     @Operation(summary = "게시글 수정")
     @ApiResponse(responseCode = "200", description = "수정 성공")
     @PatchMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PostRes> update(@PathVariable Long id, @Valid @RequestBody PostUpdateReq req) {
+    public ResponseEntity<PostRes> update(@PathVariable Long id, @Valid @ModelAttribute PostUpdateReq req) {
         Long loginUserId = auth.requireUserId();
         if (loginUserId == null) {
             throw new UnauthorizedException("게시글 수정을 위해서는 로그인이 필요합니다.");
